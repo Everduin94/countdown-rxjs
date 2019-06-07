@@ -1,0 +1,20 @@
+button {
+    padding: 20px;
+    border-radius: 24px;
+    background: #FFFFFF;
+    margin: 15px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border: 1px solid #FFFFFF;
+
+  }
+
+  ng-container {
+    font-size: 48px;
+  }
+
+
+:host {
+  font-size: 128px;
+  color: #FFFFFF;
+}
+  

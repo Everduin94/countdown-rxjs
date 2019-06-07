@@ -1,0 +1,25 @@
+:host {
+    display: block;
+  }
+  
+  input {
+    display: inline-block;
+    width: 6em;
+    padding-left: 10px;
+    position: relative;
+    top: -3em;
+    background: #454e56;
+    color: #FFFFFF;
+    border: none;
+    font-size: 18px;
+  }
+  
+  label {
+    display: inline-block;
+    width: 6em;
+    margin-right: 1.5em;
+    padding-top: 3em;
+    text-align: center;
+    color: #FFFFFF;
+  }
+  
