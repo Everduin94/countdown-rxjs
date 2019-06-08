@@ -30,10 +30,10 @@ export class InputToCountdownDirective {
   // End 1.2
   
   // 1.3
-  calculateSeconds(countdown) {
-    let totalTime = countdown.seconds
-    totalTime += countdown.minutes * 60;
-    totalTime += (countdown.hours * 60) * 60;
+  calculateSeconds(update) {
+    let totalTime = update.seconds
+    totalTime += update.minutes * 60;
+    totalTime += (update.hours * 60) * 60;
     return totalTime;
   }
   // End 1.3
