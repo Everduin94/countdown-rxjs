@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, interval, merge, of } from 'rxjs';
-import { mapTo, scan, switchMap } from 'rxjs/operators';
+import { mapTo, scan, switchMap, takeUntil } from 'rxjs/operators';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faPause } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
@@ -44,10 +44,11 @@ export class CountdownComponent implements OnInit, AfterViewInit {
         return isCounting ? interval(1000) : of();
       }),
       scan((accumulatedValue, currentValue) => {
+        if (accumulatedValue === 0) return accumulatedValue;
         if (currentValue === null || !accumulatedValue) return this.d.getTotalSeconds();
         return --accumulatedValue;
       })
     );
-  // End 3.1
+    // End 3.1
   }
 }
