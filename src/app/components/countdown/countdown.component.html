@@ -1,9 +1,13 @@
-<ng-container *ngIf="intervalObs$ | async as clock; else default">{{clock | timeFormat}}</ng-container>
+<!-- 4.2 -->
+<ng-container *ngIf="intervalObs$ | async as clock; else default">
+  {{clock | timeFormat}}
+</ng-container>
 <ng-template #default>00:00:00</ng-template>
+<!-- 4.2 -->
 
 <div style="padding: 10px;">
   <button #start type="button"><fa-icon [icon]="faPlay" style="color:mediumseagreen"></fa-icon></button>
-  <button #stop type="button"><fa-icon [icon]="faPause" style="color:dodgerblue"></fa-icon></button>
+  <button #pause type="button"><fa-icon [icon]="faPause" style="color:dodgerblue"></fa-icon></button>
   <button #reset type="button"><fa-icon [icon]="faSquare" style="color:indianred"></fa-icon></button>
 </div>
 

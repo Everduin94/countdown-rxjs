@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class InputToCountdownDirective {
 
-  // 1.1 - 
+  // 1.1 
   private state = new BehaviorSubject({
     seconds: 0,
     minutes: 0,
@@ -20,12 +20,12 @@ export class InputToCountdownDirective {
   updateState(value, command) {
     let valToNumber = parseInt(value);
     if (valToNumber < 0) valToNumber = 0;
-    let countdown = this.state.value;
-    if (command === 'seconds') countdown.seconds = valToNumber;
-    if (command === 'minutes') countdown.minutes = valToNumber;
-    if (command === 'hours') countdown.hours = valToNumber;
-    countdown.totalTime = this.calculateSeconds(countdown);
-    this.state.next(countdown);
+    let update = this.state.value;
+    if (command === 'seconds') update.seconds = valToNumber;
+    if (command === 'minutes') update.minutes = valToNumber;
+    if (command === 'hours') update.hours = valToNumber;
+    update.totalTime = this.calculateSeconds(update);
+    this.state.next(update);
   }
   // End 1.2
   

@@ -20,8 +20,8 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   @ViewChild('start', { static: true })
   startBtn: ElementRef;
 
-  @ViewChild('stop', { static: true })
-  stopBtn: ElementRef;
+  @ViewChild('pause', { static: true })
+  pauseBtn: ElementRef;
 
   @ViewChild('reset', { static: true })
   resetBtn: ElementRef;
@@ -34,10 +34,10 @@ export class CountdownComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const start$ = fromEvent(this.startBtn.nativeElement, 'click').pipe(mapTo(true));
-    const stop$ = fromEvent(this.stopBtn.nativeElement, 'click').pipe(mapTo(false));
+    const pause$ = fromEvent(this.pauseBtn.nativeElement, 'click').pipe(mapTo(false));
     const reset$ = fromEvent(this.resetBtn.nativeElement, 'click').pipe(mapTo(null));
     const stateChange$ = this.d.obs$.pipe(mapTo(null));
-    this.intervalObs$ = merge(start$, stop$, reset$, stateChange$).pipe(
+    this.intervalObs$ = merge(start$, pause$, reset$, stateChange$).pipe(
       switchMap(isCounting => {
         if (isCounting === null) return of(null);
         return isCounting ? interval(1000) : of();
