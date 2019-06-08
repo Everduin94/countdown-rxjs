@@ -7,53 +7,35 @@ import {BehaviorSubject} from 'rxjs';
 export class InputToCountdownDirective {
 
   // 1.1 
-  private state = new BehaviorSubject({
-    seconds: 0,
-    minutes: 0,
-    hours: 0,
-    totalTime: 0
-  });  
-  public obs$ = this.state.asObservable();
+
   // End 1.1 
 
   // 1.2
-  updateState(value, command) {
-    let valToNumber = parseInt(value);
-    if (valToNumber < 0) valToNumber = 0;
-    let update = this.state.value;
-    if (command === 'seconds') update.seconds = valToNumber;
-    if (command === 'minutes') update.minutes = valToNumber;
-    if (command === 'hours') update.hours = valToNumber;
-    update.totalTime = this.calculateSeconds(update);
-    this.state.next(update);
-  }
+
   // End 1.2
   
   // 1.3
-  calculateSeconds(update) {
-    let totalTime = update.seconds
-    totalTime += update.minutes * 60;
-    totalTime += (update.hours * 60) * 60;
-    return totalTime;
-  }
+
   // End 1.3
+  // Note, I've replaced this.state.value... below with this['state']
+  // The functionality is the same, this['state'] avoids compile time errors.
 
   constructor() {}
   
   getSeconds() {
-    return this.state.value.seconds;
+     return this['state'].value.seconds;
   }
 
   getMinutes() {
-    return this.state.value.minutes;
+    return this['state'].value.minutes;
   }
 
   getHours() {
-    return this.state.value.hours;
+    return this['state'].value.hours;
   }
 
   getTotalSeconds() {
-    return this.state.value.totalTime;
+    return this['state'].value.totalTime;
   }
 
 }

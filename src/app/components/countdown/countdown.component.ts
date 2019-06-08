@@ -34,20 +34,7 @@ export class CountdownComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // 3.1
-    const start$ = fromEvent(this.startBtn.nativeElement, 'click').pipe(mapTo(true));
-    const pause$ = fromEvent(this.pauseBtn.nativeElement, 'click').pipe(mapTo(false));
-    const reset$ = fromEvent(this.resetBtn.nativeElement, 'click').pipe(mapTo(null));
-    const stateChange$ = this.d.obs$.pipe(mapTo(null));
-    this.intervalObs$ = merge(start$, pause$, reset$, stateChange$).pipe(
-      switchMap(isCounting => {
-        if (isCounting === null) return of(null);
-        return isCounting ? interval(1000) : of();
-      }),
-      scan((accumulatedValue, currentValue) => {
-        if (currentValue === null || !accumulatedValue) return this.d.getTotalSeconds();
-        return --accumulatedValue;
-      })
-    );
-  // End 3.1
+
+    // End 3.1
   }
 }
