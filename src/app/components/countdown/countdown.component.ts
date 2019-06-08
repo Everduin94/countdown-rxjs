@@ -33,6 +33,7 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit(): void {
+    // 3.1
     const start$ = fromEvent(this.startBtn.nativeElement, 'click').pipe(mapTo(true));
     const pause$ = fromEvent(this.pauseBtn.nativeElement, 'click').pipe(mapTo(false));
     const reset$ = fromEvent(this.resetBtn.nativeElement, 'click').pipe(mapTo(null));
@@ -47,5 +48,6 @@ export class CountdownComponent implements OnInit, AfterViewInit {
         return --accumulatedValue;
       })
     );
+  // End 3.1
   }
 }
