@@ -44,7 +44,7 @@ export class CountdownComponent implements OnInit, AfterViewInit {
         return isCounting ? interval(1000) : of();
       }),
       scan((accumulatedValue, currentValue) => {
-        if (accumulatedValue === 0) return accumulatedValue;
+        if (accumulatedValue === 0 && currentValue !== null) return accumulatedValue;
         if (currentValue === null || !accumulatedValue) return this.d.getTotalSeconds();
         return --accumulatedValue;
       })
