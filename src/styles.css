@@ -1,14 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 /* #b7178c */
 @keyframes colorhue{
-    /* from {-webkit-filter: hue-rotate(0deg); filter: hue-rotate(0deg);}
-    to {-webkit-filter: hue-rotate(359deg); filter: hue-rotate(359deg);} */
+    from {-webkit-filter: hue-rotate(0deg); filter: hue-rotate(0deg);}
+    to {-webkit-filter: hue-rotate(359deg); filter: hue-rotate(359deg);}
 }
 
 .edit {
-    /* animation: colorhue 1s linear infinite; */
-    background: #5433FF; 
-background: -webkit-linear-gradient(to top, #A5FECB, #20BDFF, #5433FF);
-background: linear-gradient(to top, #A5FECB, #20BDFF, #5433FF); 
-color: linear-gradient(to top, #A5FECB, #20BDFF, #5433FF); 
+    animation: colorhue 10s linear infinite;
 }
