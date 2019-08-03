@@ -18,3 +18,17 @@
   (change)="d.updateState(seconds.value, 'seconds')"/>
 </label>
 <!-- End 2.1 -->
+<br>
+<label>
+  Min
+  <input #min type="number" placeholder="min" 
+  [value]="d.getMin()" 
+  (change)="d.updateIntervalState(min.value, 'min')"/>
+</label>
+
+<label>
+  Max
+  <input #max type="number" placeholder="max" 
+  [value]="d.getMax()" 
+  (change)="d.updateIntervalState(max.value, 'max')"/>
+</label>

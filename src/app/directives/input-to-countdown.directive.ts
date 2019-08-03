@@ -16,6 +16,12 @@ export class InputToCountdownDirective {
   public obs$ = this.state.asObservable();
   // End 1.1 
 
+  private intervalState = new BehaviorSubject({
+    min: 0,
+    max: 0
+  });
+  public intervalObs$ = this.intervalState.asObservable();
+
   // 1.2
   updateState(value, command) {
     let valToNumber = parseInt(value);
@@ -28,6 +34,15 @@ export class InputToCountdownDirective {
     this.state.next(update);
   }
   // End 1.2
+
+  updateIntervalState(value, command) {
+    let valToNumber = parseInt(value);
+    if (valToNumber < 0) valToNumber = 0;
+    let update = this.intervalState.value;
+    if (command === 'min') update.min = valToNumber;
+    if (command === 'max') update.max = valToNumber;
+    this.intervalState.next(update);
+  }
   
   // 1.3
   calculateSeconds(update) {
@@ -54,6 +69,15 @@ export class InputToCountdownDirective {
 
   getTotalSeconds() {
     return this.state.value.totalTime;
+  }
+
+
+  getMin() {
+    return this.intervalState.value.min;
+  }
+
+  getMax() {
+    return this.intervalState.value.max;
   }
 
 }
