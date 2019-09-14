@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/countdown-rxjs",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

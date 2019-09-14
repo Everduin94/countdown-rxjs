@@ -11,3 +11,7 @@
   <button #reset type="button"><fa-icon [icon]="faSquare" style="color:indianred"></fa-icon></button>
 </div>
 
+<select #drillSelect id="drill-select" (change)="drillChanged(drillSelect.value)">
+    <option *ngFor="let option of options" [value]="option">{{option}}</option>
+</select>
+
