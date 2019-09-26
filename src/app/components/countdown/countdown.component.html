@@ -11,7 +11,13 @@
   <button #reset type="button"><fa-icon [icon]="faSquare" style="color:indianred"></fa-icon></button>
 </div>
 
-<select #drillSelect id="drill-select" (change)="drillChanged(drillSelect.value)">
-    <option *ngFor="let option of options" [value]="option">{{option}}</option>
-</select>
+<div class="description" *ngIf="selectedDrillObs$ | async as selectedDrill">
+  {{selectedDrill.description}}
+</div>
+
+<div *ngIf="drills$ | async as drills">
+    <select #drillSelect id="drill-select" (change)="drillChanged(drillSelect.value)">
+        <option *ngFor="let drill of drills" [value]="drill">{{drill}}</option>
+    </select>
+</div>
 

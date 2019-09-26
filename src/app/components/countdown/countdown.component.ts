@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, interval, merge, of, range, BehaviorSubject, Subject } from 'rxjs';
-import { mapTo, scan, switchMap, takeUntil, concatMap, delay, mergeMap, tap, skipWhile } from 'rxjs/operators';
+import { mapTo, scan, switchMap, takeUntil, concatMap, delay, mergeMap, tap, skipWhile, map } from 'rxjs/operators';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faPause } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-solid-svg-icons';
 import { InputToCountdownDirective } from 'src/app/directives/input-to-countdown.directive';
 import { SynthesisService } from 'src/app/services/synthesis.service';
+import { ContentfulService } from 'src/app/services/contentful.service';
 
 @Component({
   selector: 'app-countdown',
@@ -30,25 +31,25 @@ export class CountdownComponent implements OnInit, AfterViewInit {
   @ViewChild('drillSelect', { static: true })
   drillSelect: ElementRef;
 
-  currentDrill$ = new BehaviorSubject('');
+  drills$;
   techniques = [];
-  tempWrestling = ['down-block', 'sprawl', 'shot', 'slide-by', 'down-block... sprawl'];
-  tempGuard = ['x-pass', 'x-pass... late', 'knee-cut', 'knee-cut... late', 'over-under', 'torreando', 'leg-lace', 'mount'];
-  tempPassing = ['D-L-R', 'Reverse D-L-R', 'S-L-X', 'X-Guard',
-    'Deep-Half', 'Spider', 'Lasso-Left', 'Lasso-Right', 'Closed Guard', 'Butterfly'];
-  kneeShieldMiniGame = ['front', 'inside', 'lace', 'hip switch'];
-  kneeShieldMiniGameTwo = ['front', 'inside', 'lace', 'hip switch', 'front... late', 'inside... late', 'lace... late', 'hip switch... late'];
-  doubleTeamMiniGame = ['left-pin... stack', 'left-pin drag', 'left-pin... circle',
-    'right-pin... stack', 'right-pin drag', 'right-pin... circle'];
-  tenacity = ['Single Legs', 'Peak Outs', 'Mace Swings', 'Stack Passes', 'Hip Escape and Invert', 'Question Mark and Wiggle'];
-  options = ['Wrestling', 'Guard', 'Passing', 'Knee Shield Mini-Game', 'Knee Shield Mini-Game 2', 'Double Team Mini-Game', 'Tenacity'];
+  selectedDrill$ = new Subject();
+  selectedDrillObs$;
+
   intervalObs$;
   max = 0;
   min = 0;
 
-  constructor(public d: InputToCountdownDirective, private s: SynthesisService) { }
+  constructor(public d: InputToCountdownDirective, private s: SynthesisService, private c: ContentfulService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.drills$ = this.c.getDrills().pipe(tap(val => this.selectedDrill$.next(val[0])));
+    this.selectedDrillObs$ = this.selectedDrill$.asObservable().pipe(map(val => {
+      const drill = this.c.getSelectedDrill(val);
+      this.techniques = drill.techniques;
+      return drill;
+    }))
+  }
 
   ngAfterViewInit(): void {
     // 3.1
@@ -105,37 +106,9 @@ export class CountdownComponent implements OnInit, AfterViewInit {
         ) : of();
       }),
     ).subscribe(console.log) // TODO: Don't do this either, async pipe later or something cute
-
-
-    this.currentDrill$.subscribe(val => {
-      switch (val) {
-        case 'Wrestling':
-          this.techniques = this.tempWrestling;
-          break;
-        case 'Guard':
-          this.techniques = this.tempGuard;
-          break;
-        case 'Passing':
-          this.techniques = this.tempPassing;
-          break;
-        case 'Knee Shield Mini-Game':
-          this.techniques = this.kneeShieldMiniGame
-          break;
-        case 'Knee Shield Mini-Game 2':
-          this.techniques = this.kneeShieldMiniGameTwo
-          break;
-        case 'Double Team Mini-Game':
-          this.techniques = this.doubleTeamMiniGame;
-        case 'Tenacity':
-          this.techniques = this.tenacity;
-        default:
-          break;
-      } // TODO: OOOOOOOOOOOOOOOOOF
-      console.log(val);
-    })
   }
 
   drillChanged(value) {
-    this.currentDrill$.next(value);
+    this.selectedDrill$.next(value);
   }
 }
