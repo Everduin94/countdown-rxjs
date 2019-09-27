@@ -33,6 +33,8 @@ export class ContentfulService {
   }
 
   getSelectedDrill(name) {
+    if (!this.content) return {};
+
     const item = this.content
       .filter(val => val.fields['name'] === name)
       .map(val => ({
