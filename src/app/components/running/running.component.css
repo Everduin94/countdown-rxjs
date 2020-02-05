@@ -1,0 +1,32 @@
+:host {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.clock {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.clock__time {
+    font-size: 144px;
+}
+
+button {
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    border-radius: 4px;
+    background: #FFFFFF;
+    margin: 15px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border: 1px solid #FFFFFF;
+    transition: all .1s linear;
+}
+
+button:active {
+    background: rgb(230, 228, 228);
+}

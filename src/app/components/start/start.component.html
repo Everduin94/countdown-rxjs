@@ -1,0 +1,23 @@
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <input #minutes formControlName="minutes">
+    <input #seconds formControlName="seconds">
+  </div>
+  
+  <div>
+    <input #minInterval formControlName="minInterval">
+    <input #maxInterval formControlName="maxInterval">
+  </div>
+  
+  <div *ngIf="drills$ | async as drills">
+    <select #drillSelect id="drill-select" formControlName="drill">
+        <option *ngFor="let drill of drills" [value]="drill">{{drill}}</option>
+    </select>
+  </div>
+  
+  <div>
+    <button #start (click)="onSubmit()">Start</button>
+  </div>
+</form>
+

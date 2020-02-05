@@ -1,24 +1,9 @@
-.center {
-    padding: 20px;
-    position: fixed;
-    width: 600px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    text-align: center;
-    z-index: 1;
-    background: #2a2e35;
-}
-
-.background {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: -10;
-    background: rgb(89,45,137);
-    background: linear-gradient(135deg, rgba(89,45,137,1) 0%, rgba(42,46,53,1) 35%, rgba(42,46,53,1) 50%, rgba(42,46,53,1) 65%, rgba(236,12,142,1) 100%);
+:host {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    justify-items: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
 }

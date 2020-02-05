@@ -1,0 +1,13 @@
+<div class="clock">
+  <div class="clock__time">
+    <ng-container *ngIf="this.cs.state$ | async as state">
+        {{state.time | timeFormat}}
+    </ng-container>
+  </div>
+</div>
+
+<div style="padding: 10px;">
+  <button #start type="button" (click)="resumeTimer()"><fa-icon [icon]="faPlay" size="2x" style="color:mediumseagreen"></fa-icon></button>
+  <button #pause type="button" (click)="pauseTimer()"><fa-icon [icon]="faPause" size="2x" style="color:dodgerblue"></fa-icon></button>
+  <button #stop type="button" (click)="stopTimer()"><fa-icon [icon]="faSquare" size="2x" style="color:indianred"></fa-icon></button>
+</div>
